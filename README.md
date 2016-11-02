@@ -34,6 +34,8 @@ salt '*' sys.doc pkg     # only sys.doc for pkg module
 salt '*' sys.doc network # only sys.doc for network module
 salt '*' sys.doc system  # only sys.doc for system module
 salt '*' sys.doc status  # only sys.doc for status module
+
+salt '*' sys.list_functions pkg # list only functions for pkg module
 ```
 
 ## Documentation on the web
@@ -52,6 +54,9 @@ salt-run manage.up      # Any minions that are up?
 salt-run manage.down    # Any minions that are down?
 salt '*' test.ping      # Use test module to check if minion is up and responding.
                         # (Not an ICMP ping!)
+
+salt-run manage.alived  # Show all `alive` minions
+                        # Based on event system status report, faster than manage.status/up/down (does not ping host)
 ```
 
 ## Target minion with state files
@@ -60,6 +65,9 @@ Apply a specific state file to a (group of..) minion(s). Do not use the .sls ext
 ```
 salt '*' state.sls mystatefile           # mystatefile.sls will be applied to *
 salt 'minion1' state.sls prod.somefile  # prod/somefile.sls will be applied to minion1
+
+salt '*' state.apply mystatefile        # Runs specified state against targetted minions.
+                                        # Refreshes sync_type data before run.
 ```
 
 ## Grains
